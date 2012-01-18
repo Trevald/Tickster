@@ -15,21 +15,21 @@
     };
     
     var methods = {
-        
         // Init method builds the Tickster
         init : function(options) {
-            var obj = $(this);
+            var obj = $(this),
+                list = obj.children().first();
             var settings = $.extend({}, defaults, options);
             
             if( obj.find('ul:first > li').length === 0 ) { return false; }
             
             obj.addClass('tickster-processed');
-            obj.find('> ul:first').addClass('tickster-' + settings.direction);
-            obj.find('ul:first > li').addClass('tickster-original');
+            list.addClass('tickster-' + settings.direction);
+            list.children('li').addClass('tickster-original');
             obj.tickster('setSize', settings);
-                    
-            obj.find('ul:first > li').live('mouseover', function() { obj.tickster('pause', settings); });
-            obj.find('ul:first > li').live('mouseout', function() { obj.tickster('play', settings); });
+            
+            list.on('mouseover', 'li', function () { obj.tickster('pause', settings); });
+            list.on('mouseout', 'li', function () { obj.tickster('play', settings); });
                 
             $(window).resize( function() {
                 obj.tickster('setSize', settings);
@@ -50,10 +50,8 @@
                 itemsWidth += $(this).outerWidth(true);
             });
                 
-            if(
-                ( itemsWidth < ticksterWidth && settings.forceAnimation ) ||
-                ( itemsWidth > ticksterWidth )
-            ) {
+            if( ( itemsWidth < ticksterWidth && settings.forceAnimation ) ||
+                ( itemsWidth > ticksterWidth ) ) {
                 settings.needsAnimation = true;
                 var i = 0,
                     l = null;
@@ -90,7 +88,7 @@
                 lastItem = list.children().last(),
                 listPos = list.css( settings.direction );
 
-            listPos = parseInt( listPos.substring(0, listPos.length - 2), 10 );
+            listPos = parseInt( listPos, 10 );
 
             // Check if the first list item (or last depending on direction) is out of view and should be put last
             var ticksterWidth = obj.width(),
@@ -98,7 +96,7 @@
                 firstItemWidth = firstItem.outerWidth(true),
                 lastItemWidth = lastItem.outerWidth(true);
             
-            if( ( listPos * -1 ) >= firstItemWidth ) {
+            if( -listPos >= firstItemWidth ) {
                 firstItem.detach().appendTo(list);
                 listPos = 0;
             }
