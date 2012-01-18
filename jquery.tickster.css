@@ -1,0 +1,23 @@
+.tickster-processed {
+	overflow: hidden;
+}
+
+	.tickster-processed ul {
+		position: relative;
+		left: 0px;
+		display: block;
+		list-style: none;
+		white-space: nowrap;
+		padding: 0;
+	}
+	
+		.tickster-processed ul li {
+			display: block;
+			list-style: none;		
+			float: left;
+		}
+		
+/* RIGHT DIRECTION */
+
+.tickster-processed ul.tickster-right { left: auto; right: 0px; float: right; }
+.tickster-processed ul.tickster-right li { float: right; }
