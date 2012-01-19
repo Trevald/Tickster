@@ -49,7 +49,7 @@
             list.children('li').each(function() {
                 itemsWidth += $(this).outerWidth(true);
             });
-                
+
             if( ( itemsWidth < ticksterWidth && settings.forceAnimation ) ||
                 ( itemsWidth > ticksterWidth ) ) {
                 settings.needsAnimation = true;
